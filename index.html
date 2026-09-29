@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Priyam ❤️</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; overflow:hidden;
+    font-family: Georgia, "Times New Roman", serif;
+    background:linear-gradient(135deg,#fff1f5,#fce4ec,#f8e8ff);
+    color:#5d3443;
+  }
+  .hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+  .heart{position:absolute;bottom:-40px;font-size:20px;opacity:.55;animation:float 8s linear infinite}
+  @keyframes float{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+  .screen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:22px;position:relative;z-index:2
+  }
+  .card{
+    width:min(92vw,650px);max-height:88vh;overflow:auto;
+    padding:38px 28px;border-radius:30px;
+    background:rgba(255,255,255,.78);
+    box-shadow:0 15px 45px rgba(130,75,105,.18);
+    backdrop-filter:blur(10px);text-align:center;
+  }
+  h1{font-size:clamp(30px,7vw,52px);margin:8px 0 16px;color:#a94d70}
+  h2{font-size:clamp(24px,6vw,38px);margin:8px 0 18px;color:#a94d70}
+  p{font-size:18px;line-height:1.75}
+  .small{font-size:14px;opacity:.7}
+  button{
+    border:0;border-radius:999px;padding:14px 28px;margin:10px;
+    font-size:17px;font-weight:bold;cursor:pointer;transition:.2s;
+  }
+  #yes{background:#d96891;color:white;box-shadow:0 7px 18px rgba(217,104,145,.25)}
+  #no{background:#eee;color:#765d67;position:fixed;z-index:5}
+  .hidden{display:none}
+  .letter{text-align:left}
+  .signature{text-align:center;font-size:19px;margin-top:25px;color:#a94d70}
+  .music-note{font-size:13px;margin-top:14px;opacity:.65}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+
+<section class="screen" id="questionScreen">
+  <div class="card">
+    <div style="font-size:48px">🎀</div>
+    <p class="small">A very important birthday question for Priyam...</p>
+    <h1>Will you accept<br>your surprise? 💗</h1>
+    <p>Think carefully, birthday boy. 👀</p>
+    <button id="yes">YES 💕</button>
+    <button id="no">NO 🙈</button>
+    <p class="small" id="tease"></p>
+  </div>
+</section>
+
+<section class="screen hidden" id="birthdayScreen">
+  <div class="card">
+    <div style="font-size:45px">🎂✨💗</div>
+    <h2>Happy Birthday, Priyam ❤️</h2>
+
+    <div class="letter">
+      <p>
+        Happy birthday to my favourite person, my Cutu, and sometimes...
+        my “husband” 😂❤️
+      </p>
+      <p>
+        Two years. Somehow we have managed to spend two whole years
+        fighting over the most ridiculous things, teasing each other,
+        annoying each other, making up, laughing, and still choosing
+        each other again and again. And honestly, that is one of my
+        favourite things about us.
+      </p>
+      <p>
+        We may not be the perfect couple, and we definitely don't have
+        the most peaceful relationship 😭, but underneath all those
+        fights and stupid arguments, there is so much love. You have
+        become such a special part of my life that I can't imagine these
+        last two years without you.
+      </p>
+      <p>
+        On your birthday, I just want you to know how much you mean to me.
+        I hope this new year of your life brings you happiness, success,
+        good health, beautiful memories, and all the little things that
+        make you genuinely happy. And yes, I hope I get to annoy you
+        through a lot more birthdays too. 🤭❤️
+      </p>
+      <p>
+        Thank you for being you — for the love, the teasing, the
+        arguments, the laughter, and all the moments that have become
+        memories for us. No matter how much we fight, you're still the
+        person I want beside me when everything settles down.
+      </p>
+      <p>
+        So today, forget all our fights for a little while and just enjoy
+        your day. You deserve to feel loved and celebrated today.
+      </p>
+    </div>
+
+    <div class="signature">
+      Happy Birthday, my Cutu. ❤️<br>
+      Here's to us, and to all the chaos still waiting for us. 🥂✨
+    </div>
+    <div class="music-note">🎵 If music doesn't start automatically, tap the page once.</div>
+  </div>
+</section>
+
+<audio id="music" loop>
+  <!-- Replace this source with a royalty-free MP3 you are allowed to use. -->
+</audio>
+
+<script>
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+const tease=document.getElementById("tease");
+const q=document.getElementById("questionScreen");
+const b=document.getElementById("birthdayScreen");
+const music=document.getElementById("music");
+
+let tries=0;
+const messages=[
+  "Are you sure? 👀",
+  "Priyammmm... think again 😭💕",
+  "Nice try 😂",
+  "You really thought I'd let you choose that? 🙈",
+  "Okay, enough. Press YES already. 😌❤️"
+];
+
+function moveNo(){
+  tries++;
+  const pad=18;
+  const maxX=Math.max(pad,window.innerWidth-no.offsetWidth-pad);
+  const maxY=Math.max(pad,window.innerHeight-no.offsetHeight-pad);
+  no.style.left=(pad+Math.random()*(maxX-pad))+"px";
+  no.style.top=(pad+Math.random()*(maxY-pad))+"px";
+  tease.textContent=messages[Math.min(tries-1,messages.length-1)];
+}
+no.addEventListener("mouseenter",moveNo);
+no.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo()});
+no.addEventListener("click",moveNo);
+
+yes.addEventListener("click",()=>{
+  q.classList.add("hidden");
+  b.classList.remove("hidden");
+  music.play().catch(()=>{});
+});
+
+document.body.addEventListener("click",()=>{
+  if(!b.classList.contains("hidden")) music.play().catch(()=>{});
+},{once:false});
+
+for(let i=0;i<24;i++){
+  const h=document.createElement("span");
+  h.className="heart";
+  h.textContent=["♥","♡","✦","✨"][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDelay=Math.random()*8+"s";
+  h.style.animationDuration=(6+Math.random()*6)+"s";
+  document.getElementById("hearts").appendChild(h);
+}
+</script>
+</body>
+</html>
